@@ -47,6 +47,9 @@ cardObj5 = {
 };
 var cardArray = [cardObj1,cardObj2,cardObj3,cardObj4,cardObj5];
 
+
+
+
 function buildCurrentWeather(city){
     var citySearch = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
     fetch (citySearch)
@@ -61,16 +64,16 @@ function buildCurrentWeather(city){
         fetch (currentWeatherCall)
         .then((response) => response.json())
         .then((data)=>{
-            console.log(data);
+            // console.log(data);
             currentDate.textContent = location + " (" + dayjs().format("MM/DD/YYYY") + ")";
             var temp = Math.round(((data.main.temp - 273.15)* (9/5)+32) * 100)/100;
-            console.log("Temperature: " + temp + "°F");
+            // console.log("Temperature: " + temp + "°F");
             currentTemp.textContent = "Temperature: " + temp + "°F";
-            console.log ("Wind: " + data.wind.speed + " MPH");
+            // console.log ("Wind: " + data.wind.speed + " MPH");
             currentWind.textContent = "Wind: " + data.wind.speed + " MPH";
-            console.log ("Humidity: " + data.main.humidity + " %");
+            // console.log ("Humidity: " + data.main.humidity + " %");
             currentHumidity.textContent = "Humidity: " + data.main.humidity + " %";
-            console.log(data.weather.icon);
+            // console.log(data.weather.icon);
             var url = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
             $('.cardCurrent-ico').attr('src',url);
         })
@@ -99,26 +102,38 @@ function buildForecast(city){
         .then((response) => response.json())
         .then((data)=>{
 
-            console.log(data);
+            // console.log(data);
 
             for (var i = 0; i<5; i++){
-                cardArray[i].title.textContent = dayjs().format("MM/DD/YYYY");
+                cardArray[i].title.textContent = dayjs().add(i+1, "day").format("MM/DD/YYYY");
                 var tempConvert = "Temperature: "+  Math.round(((data.list[i].main.temp - 273.15)* (9/5)+32) * 100)/100 + "°F";
                 cardArray[i].temp.textContent=tempConvert;
-                console.log(data.list[i].main.temp);
+                // console.log(data.list[i].main.temp);
                 cardArray[i].wind.textContent= "Wind: " + data.list[i].wind.speed + " MPH";
-                console.log(data.list[i].wind.speed);
+                // console.log(data.list[i].wind.speed);
                 cardArray[i].humidity.textContent= "Humidity: " + data.list[i].main.humidity + "%";
-                console.log(data.list[i].main.humidity);
+                // console.log(data.list[i].main.humidity);
                 var url = "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
                 $(".card" + (i+1) + "-ico").attr('src',url);
-                console.log(data.list[i].weather[0].icon);
+                // console.log(data.list[i].weather[0].icon);
             }
         })
     })
 }
 
 
+
 var defaultSearch = "charlotte";
 buildCurrentWeather(defaultSearch);
 buildForecast(defaultSearch);
+
+$(".btnSubmit").on('click', function(e){
+    e.preventDefault();
+    // $(".list-group").attr("style","visibility:visible;");
+    buildCurrentWeather($(".form-control").val().trim());
+    buildForecast($(".form-control").val().trim())
+})
+
+//Add event handler for the button
+//On search, take textContent and pass it to the two functions. 
+//Show history button with content from previious search
