@@ -110,14 +110,15 @@ function buildForecast(city){
                 console.log(data.list[i].wind.speed);
                 cardArray[i].humidity.textContent= "Humidity: " + data.list[i].main.humidity + "%";
                 console.log(data.list[i].main.humidity);
-                // cardArray[i].icon.textContent = data.list[i].weather.icon;
-                // console.log(data.list[i].weather.icon);
+                var url = "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
+                $(".card" + (i+1) + "-ico").attr('src',url);
+                console.log(data.list[i].weather[0].icon);
             }
         })
     })
 }
 
 
-var searchedText = "charlotte";
-buildCurrentWeather(searchedText);
-buildForecast(searchedText);
+var defaultSearch = "charlotte";
+buildCurrentWeather(defaultSearch);
+buildForecast(defaultSearch);
