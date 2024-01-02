@@ -5,30 +5,42 @@ var currentWind = document.querySelector(".cardCurrent-wind");
 var currentHumidity = document.querySelector(".cardCurrent-humidity");
 var currentDate = document.querySelector(".cardCurrent-date");
 
-var title1 = document.querySelector(".card1-title");
-var date1 = document.querySelector(".card1-date");
-var temp1 = document.querySelector(".card1-temp");
-var wind1 = document.querySelector(".card1-wind");
-
-var title2 = document.querySelector(".card2-title");
-var date2 = document.querySelector(".card2-date");
-var temp2 = document.querySelector(".card2-temp");
-var wind2 = document.querySelector(".card2-wind");
-
-var title3 = document.querySelector(".card3-title");
-var date3 = document.querySelector(".card3-date");
-var temp3 = document.querySelector(".card3-temp");
-var wind3 = document.querySelector(".card3-wind");
-
-var title4 = document.querySelector(".card4-title");
-var date4 = document.querySelector(".card4-date");
-var temp4 = document.querySelector(".card4-temp");
-var wind4 = document.querySelector(".card4-wind");
-
-var title5 = document.querySelector(".card5-title");
-var date5 = document.querySelector(".card5-date");
-var temp5 = document.querySelector(".card5-temp");
-var wind5 = document.querySelector(".card5-wind");
+cardObj1 = {
+    title: document.querySelector(".card1-title"),
+    Date: document.querySelector(".card1-date"),
+    temp: document.querySelector(".card1-temp"),
+    wind: document.querySelector(".card1-wind"),
+    humidity: document.querySelector(".card1-humidity"),
+};
+cardObj2 = {
+    title: document.querySelector(".card2-title"),
+    Date: document.querySelector(".card2-date"),
+    temp: document.querySelector(".card2-temp"),
+    wind: document.querySelector(".card2-wind"),
+    humidity: document.querySelector(".card2-humidity"),
+};
+cardObj3 = {
+    title: document.querySelector(".card3-title"),
+    Date: document.querySelector(".card3-date"),
+    temp: document.querySelector(".card3-temp"),
+    wind: document.querySelector(".card3-wind"),
+    humidity: document.querySelector(".card3-humidity"),
+};
+cardObj4 = {
+    title: document.querySelector(".card4-title"),
+    Date: document.querySelector(".card4-date"),
+    temp: document.querySelector(".card4-temp"),
+    wind: document.querySelector(".card4-wind"),
+    humidity: document.querySelector(".card4-humidity"),
+};
+cardObj5 = {
+    title: document.querySelector(".card5-title"),
+    Date: document.querySelector(".card5-date"),
+    temp: document.querySelector(".card5-temp"),
+    wind: document.querySelector(".card5-wind"),
+    humidity: document.querySelector(".card5-humidity"),
+};
+var cardArray = [cardObj1,cardObj2,cardObj3,cardObj4,cardObj5];
 
 
 function buildCurrentWeather(city){
@@ -82,25 +94,15 @@ function buildForecast(city){
             console.log(data);
 
             for (var i = 0; i<5; i++){
-                //console.log(data[i].name);
+                cardArray[i].title.textContent = dayjs().format("MM/DD/YYYY");
+                var tempConvert = "Temperature: "+  Math.round(((data.list[i].main.temp - 273.15)* (9/5)+32) * 100)/100 + "°F";
+                cardArray[i].temp.textContent=tempConvert;
                 console.log(data.list[i].main.temp);
+                cardArray[i].wind.textContent= "Wind: " + data.list[i].wind.speed + " MPH";
                 console.log(data.list[i].wind.speed);
+                cardArray[i].humidity.textContent= "Humidity: " + data.list[i].main.humidity + "%";
                 console.log(data.list[i].main.humidity);
             }
-
-
-
-
-            // currentDate.textContent = location + " (" + dayjs().format("MM/DD/YYYY") + ")";
-            // currentWeatherObject.temp = Math.round(((data.main.temp - 273.15)* (9/5)+32) * 100)/100;
-            // console.log("Temperature: " + currentWeatherObject.temp + "°F");
-            // currentTemp.textContent = "Temperature: " + currentWeatherObject.temp + "°F";
-            // currentWeatherObject.wind =  data.wind.speed;
-            // console.log ("Wind: " + currentWeatherObject.wind + " MPH");
-            // currentWind.textContent = "Wind: " + currentWeatherObject.wind + " MPH";
-            // currentWeatherObject.humidity = data.main.humidity;
-            // console.log ("Humidity: " + currentWeatherObject.humidity + " %");
-            // currentHumidity.textContent = "Humidity: " + currentWeatherObject.humidity + " %";
         })
     })
 }
