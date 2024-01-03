@@ -1,10 +1,14 @@
-
+//Global variables
 var key = "51dbff39a74a875476aed42c85a1e68b";
 var currentTemp = document.querySelector(".cardCurrent-temp");
 var currentWind = document.querySelector(".cardCurrent-wind");
 var currentHumidity = document.querySelector(".cardCurrent-humidity");
 var currentDate = document.querySelector(".cardCurrent-date");
 var currentIcon = document.querySelector(".cardCurrent-ico");
+let retArray = JSON.parse(localStorage.getItem("key"));
+
+
+//objects for populating the cards for the 5-day
 cardObj1 = {
     title: document.querySelector(".card1-title"),
     Date: document.querySelector(".card1-date"),
@@ -45,11 +49,13 @@ cardObj5 = {
     humidity: document.querySelector(".card5-humidity"),
     icon: document.querySelector(".card5-ico"),
 };
+
+//array of 5-day objects
 var cardArray = [cardObj1,cardObj2,cardObj3,cardObj4,cardObj5];
 
 
 
-
+//call current weather API
 function buildCurrentWeather(city){ 
     var citySearch = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
     fetch (citySearch)
@@ -80,6 +86,7 @@ function buildCurrentWeather(city){
     })
 }
 
+//call five-day API
 function buildForecast(city){
     var citySearch = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
 
@@ -163,8 +170,9 @@ $(".btnSubmit").on('click', function(e){
 
 
 
-
-let retArray = JSON.parse(localStorage.getItem("key"));
+//on load, check if any items are in recent history via local storage
+//if so, load them and get data for the last city searched. 
+//if not, use Charlotte as a default city.
 
 if (retArray !== null){
     
