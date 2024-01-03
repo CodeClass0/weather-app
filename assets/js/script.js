@@ -160,7 +160,7 @@ $(".btnSubmit").on('click', function(e){
         var recentItem = document.createElement("a");
         recentItem.className = "list-group-item list-group-item-action";
         recentItem.ariaCurrent = true;
-        recentItem.text = retArray[i];
+        recentItem.text = citySearch;
         document.querySelector(".list-group").appendChild(recentItem);
     
     }
