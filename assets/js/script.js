@@ -57,7 +57,7 @@ var cardArray = [cardObj1,cardObj2,cardObj3,cardObj4,cardObj5];
 
 //call current weather API
 function buildCurrentWeather(city){ 
-    var citySearch = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
+    var citySearch = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
     fetch (citySearch)
     .then((response) => response.json())
     .then((data)=>{
@@ -80,7 +80,7 @@ function buildCurrentWeather(city){
             // console.log ("Humidity: " + data.main.humidity + " %");
             currentHumidity.textContent = "Humidity: " + data.main.humidity + " %";
             // console.log(data.weather.icon);
-            var url = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+            var url = "htts://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
             $('.cardCurrent-ico').attr('src',url);
         })
     })
@@ -88,7 +88,7 @@ function buildCurrentWeather(city){
 
 //call five-day API
 function buildForecast(city){
-    var citySearch = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
+    var citySearch = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
 
     var currentWeatherObject = {
         location: "",
@@ -120,7 +120,7 @@ function buildForecast(city){
                 // console.log(data.list[i].wind.speed);
                 cardArray[i].humidity.textContent= "Humidity: " + data.list[i].main.humidity + "%";
                 // console.log(data.list[i].main.humidity);
-                var url = "http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
+                var url = "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png";
                 $(".card" + (i+1) + "-ico").attr('src',url);
                 // console.log(data.list[i].weather[0].icon);
             }
