@@ -50,7 +50,7 @@ var cardArray = [cardObj1,cardObj2,cardObj3,cardObj4,cardObj5];
 
 
 
-function buildCurrentWeather(city){
+function buildCurrentWeather(city){ 
     var citySearch = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=" + key;
     fetch (citySearch)
     .then((response) => response.json())
@@ -121,6 +121,10 @@ function buildForecast(city){
     })
 }
 
+function searchFromList(city){
+    buildCurrentWeather(city);
+    buildForecast(city);
+}
 
 
 var defaultSearch = "charlotte";
@@ -129,11 +133,40 @@ buildForecast(defaultSearch);
 
 $(".btnSubmit").on('click', function(e){
     e.preventDefault();
+    
+    var citySearch = $(".form-control").val().trim(); //This is a string
+    buildCurrentWeather(citySearch); 
+    buildForecast(citySearch);
+    // var array = [];
+    // var oldArray = [];
+    // if (localStorage.getItem('search') == null){
+    //     array[0] = citySearch;
+    //     localStorage.setItem('search', JSON.stringify(array));
+    // } else if (localStorage.getItem('search') !== null){
+    //     oldArray.push(JSON.parse(localStorage.getItem('search')));
+    //     oldArray.push(citySearch);
+    //     localStorage.setItem('search', JSON.stringify(oldArray));
+    // }
+
+
+
+
+    
+
+
     // $(".list-group").attr("style","visibility:visible;");
-    buildCurrentWeather($(".form-control").val().trim());
-    buildForecast($(".form-control").val().trim())
+    // var recentItem = document.createElement("a");
+    // $(".list-group-item").text(citySearch);
+    // recentItem.className = "list-group-item-"+citySearch+ " list-group-item-action";
+    // recentItem.ariaCurrent = true;
+    // recentItem.text=citySearch;
+    // document.querySelector(".list-group").appendChild(recentItem);
 })
 
-//Add event handler for the button
-//On search, take textContent and pass it to the two functions. 
-//Show history button with content from previious search
+
+
+
+
+
+
+

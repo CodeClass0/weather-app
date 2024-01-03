@@ -1,2 +1,12 @@
-# weather-app
-A 5-day forecast and current weather app
+# Weather Dashboard
+
+## Description
+
+This is a weather dashboard that displays the current conditions now, and the projected five-day forecast.
+
+## Usage
+
+When a user enters a city, the application displays information for that city.
+
+
+![screenshot of finished product](assets/images/screenshot.jpg)
