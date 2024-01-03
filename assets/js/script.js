@@ -6,7 +6,7 @@ var currentHumidity = document.querySelector(".cardCurrent-humidity");
 var currentDate = document.querySelector(".cardCurrent-date");
 var currentIcon = document.querySelector(".cardCurrent-ico");
 let retArray = JSON.parse(localStorage.getItem("key"));
-
+var holdForCall = "";
 
 //objects for populating the cards for the 5-day
 cardObj1 = {
@@ -132,7 +132,6 @@ function searchFromList(city){
     buildCurrentWeather(city);
     buildForecast(city);
 }
-
 
 
 $(".btnSubmit").on('click', function(e){
