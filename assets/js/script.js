@@ -193,3 +193,6 @@ if (retArray !== null){
     buildForecast(defaultSearch);
 }
 
+$(".list-group-item").on('click', function(){
+    searchFromList(this.text);
+})
