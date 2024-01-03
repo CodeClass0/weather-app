@@ -153,6 +153,9 @@ $(".btnSubmit").on('click', function(e){
         recentItem.ariaCurrent = true;
         recentItem.text = citySearch;
         document.querySelector(".list-group").appendChild(recentItem);
+        $(".list-group-item").on('click', function(){
+            searchFromList(this.text);
+        })
     } else if (retArray !== null){
         retArray.push(citySearch);
         var newString = JSON.stringify(retArray);
@@ -161,8 +164,12 @@ $(".btnSubmit").on('click', function(e){
         recentItem.className = "list-group-item list-group-item-action";
         recentItem.ariaCurrent = true;
         recentItem.text = citySearch;
-        document.querySelector(".list-group").appendChild(recentItem);
-    
+        document.querySelector(".list-group").appendChild(recentItem);        
+        $(".list-group-item").on('click', function(){
+            searchFromList(this.text);
+        })
+        
+
     }
 })
 
@@ -184,7 +191,10 @@ if (retArray !== null){
         recentItem.className = "list-group-item list-group-item-action";
         recentItem.ariaCurrent = true;
         recentItem.text = retArray[i];
-        document.querySelector(".list-group").appendChild(recentItem);
+        document.querySelector(".list-group").appendChild(recentItem);        
+        $(".list-group-item").on('click', function(){
+            searchFromList(this.text);
+        })
     }
 
 } else if (retArray == null){
@@ -193,6 +203,3 @@ if (retArray !== null){
     buildForecast(defaultSearch);
 }
 
-$(".list-group-item").on('click', function(){
-    searchFromList(this.text);
-})
