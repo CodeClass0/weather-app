@@ -127,46 +127,62 @@ function searchFromList(city){
 }
 
 
-var defaultSearch = "charlotte";
-buildCurrentWeather(defaultSearch);
-buildForecast(defaultSearch);
 
 $(".btnSubmit").on('click', function(e){
     e.preventDefault();
     
-    var citySearch = $(".form-control").val().trim(); //This is a string
+    var citySearch = $(".form-control").val().trim(); 
     buildCurrentWeather(citySearch); 
     buildForecast(citySearch);
-    // var array = [];
-    // var oldArray = [];
-    // if (localStorage.getItem('search') == null){
-    //     array[0] = citySearch;
-    //     localStorage.setItem('search', JSON.stringify(array));
-    // } else if (localStorage.getItem('search') !== null){
-    //     oldArray.push(JSON.parse(localStorage.getItem('search')));
-    //     oldArray.push(citySearch);
-    //     localStorage.setItem('search', JSON.stringify(oldArray));
-    // }
 
+    let retArray = JSON.parse(localStorage.getItem("key"));
 
-
-
+    if (retArray == null){
+        var array = [];
+        array[0] = citySearch;
+        localStorage.setItem("key", JSON.stringify(array));
+        $(".list-group").attr("style","visibility: visible;");
+        var recentItem = document.createElement("a");
+        recentItem.className = "list-group-item list-group-item-action";
+        recentItem.ariaCurrent = true;
+        recentItem.text = citySearch;
+        document.querySelector(".list-group").appendChild(recentItem);
+    } else if (retArray !== null){
+        retArray.push(citySearch);
+        var newString = JSON.stringify(retArray);
+        localStorage.setItem("key",newString);
+        var recentItem = document.createElement("a");
+        recentItem.className = "list-group-item list-group-item-action";
+        recentItem.ariaCurrent = true;
+        recentItem.text = retArray[i];
+        document.querySelector(".list-group").appendChild(recentItem);
     
-
-
-    // $(".list-group").attr("style","visibility:visible;");
-    // var recentItem = document.createElement("a");
-    // $(".list-group-item").text(citySearch);
-    // recentItem.className = "list-group-item-"+citySearch+ " list-group-item-action";
-    // recentItem.ariaCurrent = true;
-    // recentItem.text=citySearch;
-    // document.querySelector(".list-group").appendChild(recentItem);
+    }
 })
 
 
 
 
 
+let retArray = JSON.parse(localStorage.getItem("key"));
 
+if (retArray !== null){
+    
+    buildCurrentWeather(retArray.slice(-1));
+    buildForecast(retArray.slice(-1));
 
+    $(".list-group").attr("style","visibility: visible;");
+    for (var i = 0; i < retArray.length; i++){
+        var recentItem = document.createElement("a");
+        recentItem.className = "list-group-item list-group-item-action";
+        recentItem.ariaCurrent = true;
+        recentItem.text = retArray[i];
+        document.querySelector(".list-group").appendChild(recentItem);
+    }
+
+} else if (retArray == null){
+    var defaultSearch = "charlotte";
+    buildCurrentWeather(defaultSearch);
+    buildForecast(defaultSearch);
+}
 
