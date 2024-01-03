@@ -80,7 +80,7 @@ function buildCurrentWeather(city){
             // console.log ("Humidity: " + data.main.humidity + " %");
             currentHumidity.textContent = "Humidity: " + data.main.humidity + " %";
             // console.log(data.weather.icon);
-            var url = "htts://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+            var url = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
             $('.cardCurrent-ico').attr('src',url);
         })
     })
